@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="content"> <!-- #IMPORTANT. Refer to this layout in every page you want to use the theme -->
+      <div class="content-wrapper">
+      <span th:text="${#name}"></span>
+</div>
+</div>
+</body>
+</html>
