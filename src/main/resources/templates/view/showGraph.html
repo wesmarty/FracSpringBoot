@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+    <head>
+        <meta name="layout" content="main">
+        <title></title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/xy.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+
+
+<style>
+    .output{
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0px 0px 10px -1px black;
+    }
+    .outputhead{
+    letter-spacing: 0.01em;
+    position: relative;
+    text-align: center;
+    background: none;
+    color: white;
+    opacity: 0.95;
+    background: #1c5682e6;
+    padding: 2px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    transition: all 0.35s linear;
+    outline: none;
+    }
+    .outputhead:hover {
+    letter-spacing: 0.02em;
+    color: white;
+    }
+
+    .outputhead::after {
+    position: absolute;
+    content: '';
+    top:0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-image: linear-gradient(to right, #262727e6,#000000e6);
+    border-radius: 50px;
+    transform-origin:left;
+    transition:width 0.35s ease;
+    z-index:-1;
+    }
+
+    .outputhead:hover::after {
+    width: 100%;
+    border-radius: 50px;
+    }
+    .outputhead h4{
+    font-size: 16px;
+    }
+
+    .outputbody{
+    height: 230px;
+    font-size: 15px;
+    padding: 20px;
+    }
+    .navinbutton{
+    margin-top: 20px;
+    background: #3c8dbc;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    transition:all 1s linear ;
+    }
+    .navinbutton:hover{
+    background-color: #193f54;
+    }
+
+    .btn{
+    margin-bottom: 5px;
+    }
+</style>
+<script>
+$(document).ready(function(){
+	$("#1000").click(function(){
+	    $("#1001").slideToggle();
+	    $('#ar1').toggleClass('fa-caret-down fa-caret-right');
+	    });
+	   
+
+	    $('.button-checkbox').each(function () {
+	    var $widget = $(this),
+	    $button = $widget.find('button'),
+	    $checkbox = $widget.find('input:checkbox'),
+	    color = $button.data('color'),
+	    settings = {
+	    on: {
+	    icon: 'glyphicon glyphicon-check'
+	    },
+	    off: {
+	    icon: 'glyphicon glyphicon-unchecked'
+	    }
+	    };
+		
+	    $button.on('click', function () {
+	    $checkbox.prop('checked', !$checkbox.is(':checked'));
+	    $checkbox.triggerHandler('change');
+	    updateDisplay();
+	    });
+	    $checkbox.on('change', function () {
+	    updateDisplay();
+	    });
+
+	    function updateDisplay() {
+	    var isChecked = $checkbox.is(':checked');
+
+	    $button.data('state', (isChecked) ? "on" : "off");
+
+	    $button.find('.state-icon')
+	    .removeClass()
+	    .addClass('state-icon ' + settings[$button.data('state')].icon);
+	    if (isChecked) {
+	    $button
+	    .removeClass('btn-default')
+	    .addClass('btn-' + color + ' active');
+	    }
+	    else {
+	    $button
+	    .removeClass('btn-' + color + ' active')
+	    .addClass('btn-default');
+	    }
+	    }
+	    function init() {
+	    updateDisplay();
+	    if ($button.find('.state-icon').length == 0) {
+	                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+	    }
+	    }
+	    init();
+	    });   
+    
+}); 
+    
+    
+    </script>
+    </head>
+
+    <body>
+
+<div layout:fragment="content"> <!-- #IMPORTANT. Refer to this layout in every page you want to use the theme -->
+      <div class="content-wrapper">
+      
+      
+     
+      <!--***************************************************************************************** -->
+      <!--***************************************************************************************** -->
+      
+      <div class="row">
+      <div class="col-md-5">
+      <strong><h4 class="text-center" style="font-weight: bold;">GRAPHS</h4></strong><br>
+		
+		<div class="output">
+                        <div class="outputhead" id="1000" style="cursor: pointer;">
+                            <h4><i id="ar1" style="position: absolute; left: 20px;" class="fa fa-caret-right"></i>Mini Frac<i style="position: absolute; right: 20px;" class="fa fa-flask" aria-hidden="true"></i></h4>
+                        </div>
+                        <div class="outputbody" id="1001" style="display: none;">
+                                <span class="button-checkbox">
+									
+                                    <button type="button"  class="btn" data-color="success">G Vs der</button>
+                                    <input type="checkbox" name="resfluid" id="PotassicSandstone" checked="false" value="PotassicSandstone" class="hidden" />
+
+                                </span>
+                                <span class="button-checkbox">
+                                    <button type="button" class="btn" data-color="success">G Vs G*der</button>
+                                    <input type="checkbox" name="resfluid" id="Ironbearingsandstone" checked="false" value="Ironbearingsandstone" class="hidden" />
+
+                                </span>
+                        </div>
+                    </div>
+
+      </div>
+      </div>
+      <!--***************************************************************************************** -->
+      <!--***************************************************************************************** -->
+ 
+      </div>
+      </div>
+      </body>
+      </html>

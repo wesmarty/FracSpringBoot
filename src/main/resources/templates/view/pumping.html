@@ -1,0 +1,72 @@
+<script>
+$(document).ready(function(){
+	$("#injectType").change(function(){
+		var value = $(this).val();
+		if(value=="Bullhead"){
+			//$('#innDia').css("display","hide");
+			$("#innDia").show();
+		}
+		else{
+			$("#innDia").hide();
+		}
+	});
+});
+</script>
+
+<div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+<strong><h4 class="text-center"style="font-weight: bold;">PUMPING METHODOLOGY</h4></strong><br>
+
+<!-- Injection type Form -->
+<form class="form-horizontal" role="form">
+<div class="row">
+<div class="col-md-5">
+      <div class="form-group">
+      <div class="col-md-4">
+      <label for="injectType">Injection Type:</label>
+      </div>
+        <div class="col-md-8">
+          <select id="injectType" class="form-control">
+          <option value="" disabled selected hidden>Select Injection Type</option>
+  		<option value="CT">CT</option>
+  		<option value="Bullhead">Bullhead</option>
+          </select>
+        </div>
+      </div>
+    </div>
+</div>
+</form>
+
+						    				<!-- PROPERTIES  -->
+					<!--------------------------- TABLE ------------------------- -->
+					
+					<div class="row">
+                    <div class="col-md-10">
+                    
+                        <table id="example2" class="table table-hover" >
+                          <tr> 
+                          <th>Pipe Roughness</th>
+                          <td>
+                          <select class="form-control" id="roughness">
+    						<option>Rough</option>
+    						<option>Smooth</option>
+  							</select> </td>
+                          </tr>
+                          <tr> 
+                          <th>Coiled Tube Outer Diameter(inch)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr id="innDia"> 
+                          <th>Coiled Tube Inner Diameter(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Absolute Roughness(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                        </table>
+                        <input class="btn btn-primary" type="submit" value="SAVE" style="margin-left:50%;"/>
+                    </div>
+                </div>
+</div>
+</div>

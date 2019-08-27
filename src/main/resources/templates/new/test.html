@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script> -->
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+			 #myProgress {
+            width: 100%;
+            background-color: #ddd;
+            }
+
+            #myBar {
+            width: 10%;
+            height: 30px;
+            background-color: #f39c12;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            }
+            .thead{
+            color: white;
+            }
+            .onetmenu{
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 15px;
+            position: relative;
+            text-align: left;
+            width: 230px;
+            padding-left: 20px;
+            background: none;
+            opacity: 0.85;
+            color: black;
+            height: 50px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0.5px 0.5px 17px 0px #04040478;
+            transition: all 0.35s linear;
+            outline: none;
+            }
+
+            .onetmenu:hover {
+            letter-spacing: 0.02em;
+            color: black;
+            text-shadow: 2px 2px 12px white;
+            }
+
+            .onetmenu::after {
+            position: absolute;
+            content: '';
+            top:0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(243,156,18,1),rgba(219,161,5,0.85));
+            border-radius: 50px;
+            transform-origin:left;
+            transition:width 0.35s ease;
+            z-index:-1;
+            }
+
+            .onetmenu:hover::after {
+            width: 100%;
+            border-radius: 50px;
+            }
+
+            .menu-down{
+            margin-bottom: 20px;
+            }
+
+            hr.style-six {
+            position: relative;
+            padding: 0;
+            border: none;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(243,156,18,1), rgba(0,0,0,0));
+            background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(243,156,18,1), rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(243,156,18,1), rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(243,156,18,1), rgba(0,0,0,0));
+            color: #333;
+            text-align: center;
+            }
+            hr.style-six:after {
+            content:" ";
+            display: inline-block;
+            font-size: 1.5em;
+            padding: 10px 22px;
+            background: #fff url(image/cartoon_1.png) no-repeat scroll center;
+            height: 50px;
+            }
+            .img-logo{
+            position: absolute;
+            top: 62px;
+            left: 48%;
+            width: 40px;
+            height: 25px;
+            opacity: 0.9;
+            }
+        </style>
+</head>
+<body>
+<div layout:fragment="content"> <!-- #IMPORTANT. Refer to this layout in every page you want to use the theme -->
+      <div class="content-wrapper">
+      <!-- <span th:text="${#name}"></span> -->
+      
+<!-- --------------------------------------STARTS HERE-------------------------------------------- -->
+
+		<section class="content">
+		
+		<div class="row">
+                <div class="col-md-2">
+                    <div class="pull-left">
+                    <button type="reset" class="btn btn-lg bg-primary" style="width:100%"><i class="fa fa-angle-left"></i> Previous</button>
+                    </div>
+                </div>
+
+               <!--  <% def details= ProjectDetails.get(params.id)%> -->
+               
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Project name:
+                            <input type="text" class="form-control" id="subCategory" th:value=${ProjectDetail.getProjectName()} readonly="">
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        Well Name:
+                            <input type="text" class="form-control" id="subCategory" th:value=${ProjectDetail.getWellName()} readonly="">
+                                            </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        Creation Date:
+                            <input type="date" class="form-control" id="subCategory" th:value=${ProjectDetail.getDateCreated()} readonly="">
+                    </div>
+
+                </div>
+
+                <div class="col-md-1">
+                </div>
+
+
+
+            </div>
+		
+		<script type="text/javascript">
+                /* var a = 0;
+
+                $(document).ready(function(){
+                function myfunction(){
+                var tset="tset";
+                var id = "${params.id.toLong()}";
+                var URL;
+                URL="${createLink(controller:'ReservoirLithology',action:'menu')}";
+                var id = "${params.id.toLong()}";
+                $.ajax({
+                type: 'POST',
+                url: URL, 
+                data: {id:id,tset:tset},
+                success: function(data) {
+                cls(data);
+                }
+                });
+
+                }
+                function cls(input){
+                value1 =input;
+                var id = "${params.id.toLong()}";
+                var URL;
+                if(value1=="edit"){
+                URL="${createLink(controller:'WellData',action:'historyMatching')}";
+                }
+                else{
+                 URL="${createLink(controller:'ODTSDATA',action:'editdts')}";
+                }
+                var id = "${params.id.toLong()}";
+                $.ajax({
+                type: 'POST',
+                url: URL, 
+                data: {id:id},
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                } */
+
+
+                $(document).ready(function() {
+                	
+                    $("#rl").click(function(){
+                    	url = "/reservoirLithology";
+                    	$.ajax({
+                    		url: url,
+                    		success: function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                      
+                    });
+                   
+                    $('#ip').click(function(){
+                		url="/injectionPlan";
+                		$.ajax({
+                			url:url,
+                			success:function(data){
+                				$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                			}
+                		});
+                	});
+                    
+                    $('#wd').click(function(){
+                    	url="/wellData";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $('#pe').click(function(){
+                    	url="/pumping";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $('#ap').click(function(){
+                    	url="/acidType";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $("#rfp").click(function(){
+                    	url="/reservoirFluid";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $("#rp").click(function(){
+                    	url="/rockProperties";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $("#if").click(function(){
+                    	url="/injectedFluid";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                    $("#mf").click(function(){
+                    	url="/miniFrac";
+                    	$.ajax({
+                    		url:url,
+                    		success:function(data){
+                    			$("#loadtable").html(data);
+                            	jQuery("#exampleModal").modal('show');
+                    		}
+                    	});
+                    });
+                    
+                });
+                               
+                /* $("#rl").click(function(){
+                $.ajax({url: "/stimopti/reservoirLithology/lithology?id=${details.id}",
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                }); */
+
+               /*  $("#ip").click(function(){
+                $.ajax({url: "/stimopti/injectionPlan/list1/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+
+                });
+
+                $("#wd").click(function(){
+                $.ajax({url: "/stimopti/wellData/list1/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#pe").click(function(){
+                $.ajax({url: "/stimopti/wellData/pumpingEquipment/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#iso").click(function(){
+                var id = "${params.id.toLong()}";
+                var URL;
+                URL="${createLink(controller:'WellData',action:'isothermData')}";
+                $.ajax({
+                type: 'POST',
+                url: URL, 
+                data: {id:id},
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#mso").click(function(){
+                $.ajax({url: "/stimopti/wellData/mineral/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+
+                $("#dpm").click(function(){
+                $.ajax({url: "/stimopti/wellData/diverterProperties/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#rfp").click(function(){
+                $.ajax({url: "/stimopti/wellData/reservoirFluidProperties/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#wc").click(function(){
+                $.ajax({url: "/stimopti/wellCompletion/list1/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#rp").click(function(){
+                $.ajax({url: "/stimopti/wellData/rockProperties/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+                $("#s").click(function(){
+                $.ajax({url: "/stimopti/wellData/sensitivity/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+
+                $("#hm").click(function(){
+
+                myfunction();
+
+                });
+
+
+                $("#ap").click(function(){
+                $.ajax({url: "/stimopti/wellData/acidProperties/?id=${details.id}", 
+                success: function(data) {
+                $("#loadtable").html(data);
+                jQuery("#exampleModal").modal('show');
+                }
+                });
+                });
+
+
+                }); */
+            </script>
+		
+		<!-- Main Menu Modal to load all the table data -->
+
+<!-- Modal -->
+            <!-- <div id="warng" class="tab-content text-center">
+                <h3 class="bg-danger" style=" color: red;-">Please wait . Your data is under processing .</h3>
+
+            </div> -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div style="width: 1000px;" class="modal-dialog" role="document">
+                    <div class="modal-content" style="border-radius: 20px;">
+                        <div class="modal-pop-header" style="padding: 20px;">
+                            <button style=" border-radius: 20px;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span style="font-size: 20px;" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="loadtable" style="padding: 20px;">
+					
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="box-body">
+                <div class="nav-tabs-custom box-solid">
+                    <div class="tab-content text-center">
+
+                        <div class="tab-pane active" id="tab_1">
+                        <!-- Personal info Li -->    
+                            <li class="list-group-item">
+                                <strong><h3 class="header-list text-uppercase">Input Data<hr class="style-six"/></h3></strong><br>
+
+                                <div class="row">
+                                    <div class="col-md-12 menu-down">
+                                        <button id="rl" title="your-tooltip-here" class="onetmenu" style="margin-bottom: 10px;"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Reservoir Lithology</button>
+                                        <button id="ip" title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Injection Plan</button>
+                                        <button id="wd"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Well Data</button>
+                                        <button id="pe"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Pumping Equipment</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 menu-down">
+                                        <button id="ap"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Acid Properties</button>
+                                        <button id="sa"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Stress Analysis</button>
+                                        <button id="dp"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Diverter Properties</button>
+                                        <button id="rfp"title="your-tooltip-here"  class="onetmenu" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Reservoir Fluid Properties</button>
+
+                                        
+                                    </div>
+                                </div>
+                                
+                                                   <div class="row">
+                                    <div class="col-md-12 menu-down">
+                                        <button id="ph"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Potential Hazard (for Recipe Design)</button>
+                                        <button id="fd"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Formation Damage & Mineralogy</button>
+                                        <button id="rp"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Rock Properties</button>
+                                        <button id="if"title="your-tooltip-here"  class="onetmenu" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Injected Fluid </button>
+
+                                        
+                                    </div>
+                                </div>
+                                
+
+								<div class="row">
+
+                                    <div class="col-md-12 menu-down">
+                                    
+                                        <button id="mf"title="your-tooltip-here"  class="onetmenu" style="margin-bottom: 10px;width:280px;" data-toggle="modal"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Mini Frac</button>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="row" id="showrunsim" style="display:none;">
+                                    <div class="col-md-12">
+
+                                            <h2 class="content-center">Click Button to Run Simulation<hr class="style-six"></h2>
+
+                                            <form  id="demoform" method="POST" name="demoform">   
+                                                <div id="myProgress">
+                                                    <div id="myBar"></div>
+                                                </div><br>
+
+                                                <button   id="run1" size="100" style="width:20%;height:9%;font-size: 20px;" class="btn btn-warning" onclick="move()">Run Simulator</button>                                          
+
+                                            </form>
+                                       
+                                            <h2 class="content-center">Simulation has been done successfully</h2>
+
+                                
+                                       
+                                        <div id="show">
+                                        </div>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div> 
+                </div>
+
+        </section>
+
+      
+      
+      
+<!------------------------------------------ ENDS HERE --------------------------------------------- -->
+</div>
+</div>
+</body>
+</html>
+

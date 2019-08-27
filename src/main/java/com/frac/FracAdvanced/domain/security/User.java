@@ -2,7 +2,7 @@ package com.frac.FracAdvanced.domain.security;
 
 import javax.persistence.*;
 
-import com.frac.FracAdvanced.domain.ProjectDetails;
+import com.frac.FracAdvanced.model.ProjectDetails;
 
 import java.util.Collection;
 import java.util.List;

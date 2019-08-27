@@ -1,0 +1,104 @@
+
+<div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+<strong><h4 class="text-center"style="font-weight: bold;">MINI FRAC ANALYSIS</h4></strong><br>
+
+<script>
+$('#importData').click(function(event){
+	event.preventDefault();
+	var formData = new FormData($("#fileUploadForm")[0]);
+	
+	
+	$.ajax({
+		  url: "test2",
+		  type: 'POST',
+		  enctype: 'multipart/form-data',
+		  data: formData,
+		  processData: false, // tell jQuery not to process the data
+		  contentType: false, // tell jQuery not to set contentType
+		  cache: false,
+		  success: function(res){
+		    var data;
+		    var i;
+		    for(i=0;i<res.length;i++){
+		    	data+="<tr><td >" + res[i].pressure + "</td><td>" + res[i].time + "</td><td class='text-left'><button onclick='' id='delete'><i class='fa fa-fw fa-edit'></i></button></td><td class='text-left'><button onclick='' id='delete'><i class='fa fa-fw fa-trash'></i></button></td></tr>";
+		    }
+		    $("#body").html(data);
+		  },
+		  error: function(res) {
+		    console.log('ERR: ' + res);
+		  }
+		});
+	
+});
+
+</script>
+
+
+<form class="form-group " th:action="@{/}" enctype="multipart/form-data" id="fileUploadForm"  method="post" >
+ <div class="row">
+<div class="col-md-12">
+
+                
+                        Select Mini Frac File (txt) to import
+                        <input id="file1" name="files" type="file"><br>
+                  <input type="submit" id="importData" value="Import" class="btn btn-primary"></input>
+                
+              
+              </div>
+            </div> 
+         
+            <br>
+            
+            <div class="row">
+                <div class="col-md-12">
+    <div class="form-group">
+    <div class="col-md-5">
+    <label >Pumping Time (Min)</label>
+    </div>
+    <div class="col-md-5">
+   <input  id="ptime" class="form-control" type="number" min=0 step="any" name="pumptime" th:value=${pumptime} placeholder="Enter Pumping Time">
+    
+    
+    
+    <input id="hiddenId" name="pro_Id" type="hidden" th:value=${hiddenId}>
+    
+    </div>
+    </div>
+    </div>
+                </div>
+         </form> 
+                <br>
+                
+            <div class="row">
+            <div class="col-md-12" >
+            <table id="example2" class="table table-hover table-hover" >
+                            <thead  class="bg-gray">
+							<tr>
+                            		<th style="width:40%" text-center>Pressure (psi)</th>
+                            		<th style="width:40%" text-center>Shut In Time (Min)</th>
+                            		<th>Update</th>
+                            		<th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody th:if="${list.empty}" id="body" >
+                             
+                             </tbody>
+                             
+                             <tbody >
+                             <tr th:each="list : ${list}"  >
+                                            <td th:text="${list.pressure}"></td>
+                                            <td th:text="${list.time}"></td>
+                                            <td class="text-left">
+                                                    <button onclick="" id="delete"><i class="fa fa-fw fa-edit"></i></button>
+                                            </td>
+                                             <td class="text-left">
+                                                    <button onclick="" id="delete"><i class="fa fa-fw fa-trash"></i></button>
+                                            </td> 
+                                        </tr>
+                             </tbody>
+                        </table>
+            </div>
+            </div>
+</div>
+</div>

@@ -1,0 +1,174 @@
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <strong><h4 class="text-center"style="font-weight: bold;">WELL COMPLETION DATA</h4></strong><br>
+                <div class="row">
+                    <div class="col-md-12">
+
+
+<!-- -->
+<form class="form-horizontal" role="form">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        
+        <div class="col-md-10">
+          <select class="form-control">
+          <option value="" disabled selected hidden>Select Well Profile</option>
+  		<option value="1">Vertical</option>
+  		<option value="2">Horizontal</option>
+  		<option value="3">Slanted</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="col-md-11">
+          <select class="form-control">
+          <option value="" disabled selected hidden>Select Completion Type</option>
+  		<option value="1">Open Hole</option>
+  		<option value="2">Cased Hole</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-group">
+    <div class="col-md-6">
+    <label >Input Shape Correction Factor</label>
+    </div>
+    <div class="col-md-6">
+    <input class="form-control" type="number"/>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+</form>
+
+<span th:if="${gender=='f'}"> <!-- th:if="${teacher.gender == 'F'}"> -->
+<div class="row">
+<div class="col-md-6">
+
+
+<table id="" class="table table-hover" >
+                          <tr> 
+                          <th>M.D.(ft)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr> 
+                          <th>TVD(ft)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr id="innDia"> 
+                          <th>Well Bore Radius(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Drainage Radius(ft)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                        </table>
+
+
+</div>
+<div class="col-md-6">
+<table id="" class="table table-hover" >
+                          <tr> 
+                          <th>Hole Diameter(inch)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr> 
+                          <th>Casing Outer Diameter(inch)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr id="innDia"> 
+                          <th>Tubing I.D(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Tubing O.D(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Tubing Length(ft)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+</table>
+	<input class="btn btn-primary" type="submit" value="SAVE" style="margin-left:50%;"/>                       
+</div>
+</div>
+</span>
+
+<span th:if="${gender=='m'}">
+<div class="row">
+<div class="col-md-6">
+
+
+<table id="" class="table table-hover" >
+                          <tr> 
+                          <th>M.D.(ft)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr> 
+                          <th>TVD(ft)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr id="innDia"> 
+                          <th>Well Bore Radius(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Drainage Radius(ft)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                        </table>
+
+
+</div>
+<div class="col-md-6">
+<table id="" class="table table-hover" >
+                          <tr> 
+                          <th>Hole Diameter(inch)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr> 
+                          <th>Casing Outer Diameter(inch)</th>
+                          <td> <input type="number" class="form-control"/> </td>
+                          </tr>
+                          <tr id="innDia"> 
+                          <th>Tubing I.D(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Tubing O.D(inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Tubing Length(ft)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Perforation length (ft)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>SPF</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+                          <tr > 
+                          <th>Perforation Diameter (inch)</th>
+                          <td><input type="number" class="form-control"/></td>
+                          </tr>
+</table>
+	<input class="btn btn-primary" type="submit" value="SAVE" style="margin-left:50%;"/>                       
+</div>
+</div>
+</span>
+ <!-- -->
+                </div>
+
+            </div>
+
+        </div>
+    
