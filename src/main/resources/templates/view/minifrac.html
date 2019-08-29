@@ -3,7 +3,10 @@
             <div class="tab-pane active" id="tab_1">
 <strong><h4 class="text-center"style="font-weight: bold;">MINI FRAC ANALYSIS</h4></strong><br>
 
-<script>
+<script type="text/javascript">
+
+
+
 $('#importData').click(function(event){
 	event.preventDefault();
 	var formData = new FormData($("#fileUploadForm")[0]);
@@ -21,7 +24,7 @@ $('#importData').click(function(event){
 		    var data;
 		    var i;
 		    for(i=0;i<res.length;i++){
-		    	data+="<tr><td >" + res[i].pressure + "</td><td>" + res[i].time + "</td><td class='text-left'><button onclick='' id='delete'><i class='fa fa-fw fa-edit'></i></button></td><td class='text-left'><button onclick='' id='delete'><i class='fa fa-fw fa-trash'></i></button></td></tr>";
+		    	data+="<tr><td >" + res[i].pressure + "</td><td>" + res[i].time + "</td><td class='text-left'><button onclick='' id='edit'><a th:href=\"@{'/update/'"+res[i].id +"\" class=\"fa fa-fw fa-edit\"></a></button></td><td class='text-left'><button onclick='' id='delete'><a th:href=\"@{'/delete/'"+res[i].id +"\" class=\"fa fa-fw fa-trash\"></a></button></td></tr>";
 		    }
 		    $("#body").html(data);
 		  },
@@ -32,23 +35,43 @@ $('#importData').click(function(event){
 	
 });
 
-</script>
+$(".update").click(function(){
+	var id=$(this).val();
+	$(this).type='text';
+	$(".press").prop("disabled" , false);
+	$(".time").prop("disabled" , false);
+	alert(id);
 
+});
+
+$(".delete").click(function(){
+	var id=$(this).val();
+	var pid=$("#hiddenId").val();
+	url="/delete";
+	$.ajax({
+	url:url,
+	data:{id:id,pid:pid},
+	success:function(data){
+		$("#loadtable").html(data);
+    	jQuery("#exampleModal").modal('show');
+	}
+	});
+});
+
+</script>
 
 <form class="form-group " th:action="@{/}" enctype="multipart/form-data" id="fileUploadForm"  method="post" >
  <div class="row">
 <div class="col-md-12">
 
-                
                         Select Mini Frac File (txt) to import
                         <input id="file1" name="files" type="file"><br>
-                  <input type="submit" id="importData" value="Import" class="btn btn-primary"></input>
-                
+                  
               
               </div>
             </div> 
          
-            <br>
+            
             
             <div class="row">
                 <div class="col-md-12">
@@ -58,13 +81,11 @@ $('#importData').click(function(event){
     </div>
     <div class="col-md-5">
    <input  id="ptime" class="form-control" type="number" min=0 step="any" name="pumptime" th:value=${pumptime} placeholder="Enter Pumping Time">
-    
-    
-    
-    <input id="hiddenId" name="pro_Id" type="hidden" th:value=${hiddenId}>
+    <input id="hiddenId" name="pro_Id" type="hidden" th:value=${hiddenId}><br>
     
     </div>
     </div>
+    <input type="submit" id="importData" value="Import" class="btn btn-primary"></input>
     </div>
                 </div>
          </form> 
@@ -87,15 +108,16 @@ $('#importData').click(function(event){
                              
                              <tbody >
                              <tr th:each="list : ${list}"  >
-                                            <td th:text="${list.pressure}"></td>
-                                            <td th:text="${list.time}"></td>
+                            
+                                            <td><input type="text"  th:value="${list.pressure}" class="press form-control" disabled></td>
+                                            <td><input type="text"  th:value="${list.time}" class="time form-control" disabled></td>
                                             <td class="text-left">
-                                                    <button onclick="" id="delete"><i class="fa fa-fw fa-edit"></i></button>
+                                                    <input type="button" th:value="${list.id}" class="update"/>
                                             </td>
                                              <td class="text-left">
-                                                    <button onclick="" id="delete"><i class="fa fa-fw fa-trash"></i></button>
-                                            </td> 
-                                        </tr>
+                                                    <input type="button" th:value="${list.id}" class="delete"/>
+                                            </td>
+                               </tr>
                              </tbody>
                         </table>
             </div>

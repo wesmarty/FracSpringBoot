@@ -8,7 +8,6 @@ public class ReservoirLithology {
 	
 	@RequestMapping("/reservoirLithology")
 	public String show() {
-		
 		return "view/resevoirlithology";
 	}
 }

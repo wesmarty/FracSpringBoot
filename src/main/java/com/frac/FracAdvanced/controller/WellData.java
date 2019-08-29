@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WellData {
 
 		@RequestMapping("/wellData")
-		public String show(Model model) {
-			String gender="f";
-			model.addAttribute("gender", gender);
+		public String show() {
+			
 			return "view/welldata";
 		}
 }

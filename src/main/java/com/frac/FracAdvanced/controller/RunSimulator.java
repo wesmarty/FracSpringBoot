@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frac.FracAdvanced.Method.MiniFracAlgo;
 import com.frac.FracAdvanced.Method.WriteReadFile;
@@ -37,12 +39,13 @@ public class RunSimulator {
 		return list;
 	}
 	
-	@RequestMapping("/showGraph/{id}")
-	public List<OutputMiniFrac> showGraph(@PathVariable("id") Integer id) {
-		
-		List<OutputMiniFrac> charts=output.findByProId(id);
-		return charts;
+	@RequestMapping("/simulate")
+	@ResponseBody
+	public String simulate(@RequestParam("pId") int p_id,RedirectAttributes attributes) throws Exception {
+		WriteReadFile.createInputFile();
+		Map<String, String> inputfilemap=WriteReadFile.readInputFile();
+		MiniFracAlgo.calculate(inputfilemap,p_id);
+		return "Success";
 	}
-	
 	
 }

@@ -106,7 +106,9 @@ public static void calculate(Map<String, String> inputfilemap,int pId) throws Ex
                 break;
             }
         }
-        FileWriter write=new FileWriter("E:\\Git Frac\\FracSpringBoot\\src\\main\\webapp\\InputFile\\OutputFile.txt");
+        String path=session.getServletContext().getRealPath("/");
+        String filename="OutputFile.txt";
+        FileWriter write=new FileWriter(path+"/InputFile/"+filename);
 		BufferedWriter buffer=new BufferedWriter(write);
 		buffer.write("/*****OUTPUT FILE*********/");
 		List<OutputMiniFrac> outputlist=new ArrayList<>();

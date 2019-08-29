@@ -31,7 +31,7 @@ public class WriteReadFile {
 	}
 	
 	
-	public static void CreateInputFile()throws Exception {
+	public static void createInputFile()throws Exception {
 		List<MiniFracModel> inputList= service.findAll();
 		String path=session.getServletContext().getRealPath("/");
 		String filename="InputFile.txt";
