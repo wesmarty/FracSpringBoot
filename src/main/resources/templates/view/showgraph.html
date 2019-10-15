@@ -1,86 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
-    <head>
-        <meta name="layout" content="main">
-        <title></title>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
+<head>
+<meta name="layout" content="main">
+<title>FracAdvance: Graphs</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/xy.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script
+	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
 
 
 <style>
-    .output{
-    background-color: white;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 0px 0px 10px -1px black;
-    }
-    .outputhead{
-    letter-spacing: 0.01em;
-    position: relative;
-    text-align: center;
-    background: none;
-    color: white;
-    opacity: 0.95;
-    background: #1c5682e6;
-    padding: 2px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border: none;
-    transition: all 0.35s linear;
-    outline: none;
-    }
-    .outputhead:hover {
-    letter-spacing: 0.02em;
-    color: white;
-    }
+.output {
+	background-color: white;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	box-shadow: 0px 0px 10px -1px black;
+}
 
-    .outputhead::after {
-    position: absolute;
-    content: '';
-    top:0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-image: linear-gradient(to right, #262727e6,#000000e6);
-    border-radius: 50px;
-    transform-origin:left;
-    transition:width 0.35s ease;
-    z-index:-1;
-    }
+.outputhead {
+	letter-spacing: 0.01em;
+	position: relative;
+	text-align: center;
+	background: none;
+	color: white;
+	opacity: 0.95;
+	background: #1c5682e6;
+	padding: 2px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border: none;
+	transition: all 0.35s linear;
+	outline: none;
+}
 
-    .outputhead:hover::after {
-    width: 100%;
-    border-radius: 50px;
-    }
-    .outputhead h4{
-    font-size: 16px;
-    }
+.outputhead:hover {
+	letter-spacing: 0.02em;
+	color: white;
+}
 
-    .outputbody{
-    height: 230px;
-    font-size: 15px;
-    padding: 20px;
-    }
-    
+.outputhead::after {
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 100%;
+	background-image: linear-gradient(to right, #262727e6, #000000e6);
+	border-radius: 50px;
+	transform-origin: left;
+	transition: width 0.35s ease;
+	z-index: -1;
+}
 
-    .btn{
-    margin-bottom: 5px;
-    }
-    
-    #chartdiv {
-  width: 100%;
-  height: 500px;
+.outputhead:hover::after {
+	width: 100%;
+	border-radius: 50px;
+}
+
+.outputhead h4 {
+	font-size: 16px;
+}
+
+.outputbody {
+	height: 230px;
+	font-size: 15px;
+	padding: 20px;
+}
+
+.btn {
+	margin-bottom: 5px;
+}
+
+#chartdiv {
+	width: 100%;
+	height: 500px;
 }
 </style>
 
@@ -263,13 +273,337 @@ function showgraph2(dataprovider){
 	});
 }
 
+
+function showgraph3(dataprovider){
+	
+	var chart = AmCharts.makeChart("chartdiv", {
+	  "type": "xy",
+	  "theme": "none",
+	  "marginRight": 80,
+	  "dataDateFormat": "YYYY-MM-DD",
+	  "startDuration": 1.5,
+	  "trendLines": [],
+	  "balloon": {
+	    "adjustBorderColor": false,
+	    "shadowAlpha": 0,
+	    "fixedPosition": true
+	  },
+	  "graphs": [{
+	    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[gtd]]</b></div>",
+	    "bullet": "diamond",
+	    "maxBulletSize": 25,
+	    "lineAlpha": 0.8,
+	    "lineThickness": 2,
+	    "lineColor": "#b0de09",
+	    "fillAlphas": 0,
+	    "xField": "depth",
+	    "yField": "breakdown",
+	    "valueField": "aValue"
+	  }],
+	  "valueAxes": [{
+	    "id": "ValueAxis-1",
+	    "axisAlpha": 0
+	  }, {
+	    "id": "ValueAxis-2",
+	    "axisAlpha": 0,
+	    "position": "bottom"
+	  }],
+	  "allLabels": [],
+	  "titles": [],
+	  "dataProvider": dataprovider,
+
+	  "export": {
+	    "enabled": true
+	  },
+
+	  "chartScrollbar": {
+	    "offset": 15,
+	    "scrollbarHeight": 5
+	  },
+
+	  "chartCursor": {
+	    "pan": true,
+	    "cursorAlpha": 0,
+	    "valueLineAlpha": 0
+	  }
+	});
+}
+
+
+function showgraph4(dataprovider){
+	
+	var chart = AmCharts.makeChart("chartdiv", {
+	  "type": "xy",
+	  "theme": "none",
+	  "marginRight": 80,
+	  "dataDateFormat": "YYYY-MM-DD",
+	  "startDuration": 1.5,
+	  "trendLines": [],
+	  "balloon": {
+	    "adjustBorderColor": false,
+	    "shadowAlpha": 0,
+	    "fixedPosition": true
+	  },
+	  "graphs": [{
+		    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[value]]</b></div>",
+		    "bullet": "round",
+		    "maxBulletSize": 25,
+		    "lineAlpha": 0.8,
+		    "lineThickness": 2,
+		    "lineColor": "#fcd202",
+		    "fillAlphas": 0,
+		    "xField": "depth",
+		    "yField": "horizontal",
+		    "valueField": "bValue"
+		  }],
+	  "valueAxes": [{
+	    "id": "ValueAxis-1",
+	    "axisAlpha": 0
+	  }, {
+	    "id": "ValueAxis-2",
+	    "axisAlpha": 0,
+	    "position": "bottom"
+	  }],
+	  "allLabels": [],
+	  "titles": [],
+	  "dataProvider": dataprovider,
+
+	  "export": {
+	    "enabled": true
+	  },
+
+	  "chartScrollbar": {
+	    "offset": 15,
+	    "scrollbarHeight": 5
+	  },
+
+	  "chartCursor": {
+	    "pan": true,
+	    "cursorAlpha": 0,
+	    "valueLineAlpha": 0
+	  }
+	});
+}
+
+
+function showgraph5(dataprovider){
+	
+	var chart = AmCharts.makeChart("chartdiv", {
+	  "type": "xy",
+	  "theme": "none",
+	  "marginRight": 80,
+	  "dataDateFormat": "YYYY-MM-DD",
+	  "startDuration": 1.5,
+	  "trendLines": [],
+	  "balloon": {
+	    "adjustBorderColor": false,
+	    "shadowAlpha": 0,
+	    "fixedPosition": true
+	  },
+	  "graphs": [{
+	    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[gtd]]</b></div>",
+	    "bullet": "diamond",
+	    "maxBulletSize": 25,
+	    "lineAlpha": 0.8,
+	    "lineThickness": 2,
+	    "lineColor": "#b0de09",
+	    "fillAlphas": 0,
+	    "xField": "depth",
+	    "yField": "breakdown",
+	    "valueField": "aValue"
+	  }, {
+	    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[value]]</b></div>",
+	    "bullet": "round",
+	    "maxBulletSize": 25,
+	    "lineAlpha": 0.8,
+	    "lineThickness": 2,
+	    "lineColor": "#fcd202",
+	    "fillAlphas": 0,
+	    "xField": "depth",
+	    "yField": "horizontal",
+	    "valueField": "bValue"
+	  }],
+	  "valueAxes": [{
+	    "id": "ValueAxis-1",
+	    "axisAlpha": 0
+	  }, {
+	    "id": "ValueAxis-2",
+	    "axisAlpha": 0,
+	    "position": "bottom"
+	  }],
+	  "allLabels": [],
+	  "titles": [],
+	  "dataProvider": dataprovider,
+
+	  "export": {
+	    "enabled": true
+	  },
+
+	  "chartScrollbar": {
+	    "offset": 15,
+	    "scrollbarHeight": 5
+	  },
+
+	  "chartCursor": {
+	    "pan": true,
+	    "cursorAlpha": 0,
+	    "valueLineAlpha": 0
+	  }
+	});
+}
+
+function showgraph6(dataprovider){
+	
+	var chart = AmCharts.makeChart("chartdiv", {
+	  "type": "xy",
+	  "theme": "none",
+	  "marginRight": 80,
+	  "dataDateFormat": "YYYY-MM-DD",
+	  "startDuration": 1.5,
+	  "trendLines": [],
+	  "balloon": {
+	    "adjustBorderColor": false,
+	    "shadowAlpha": 0,
+	    "fixedPosition": true
+	  },
+	  "graphs": [{
+	    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[gtd]]</b></div>",
+	    "bullet": "diamond",
+	    "maxBulletSize": 25,
+	    "lineAlpha": 0.8,
+	    "lineThickness": 6,
+	    "lineColor": "purple",
+	    "fillAlphas": 0,
+	    "xField": "time",
+	    "yField": "rate",
+	    "valueField": "aValue"
+	  }],
+	  "valueAxes": [{
+	    "id": "ValueAxis-1",
+	    "axisAlpha": 0
+	  }, {
+	    "id": "ValueAxis-2",
+	    "axisAlpha": 0,
+	    "position": "bottom"
+	  }],
+	  "allLabels": [],
+	  "titles": [],
+	  "dataProvider": dataprovider,
+
+	  "export": {
+	    "enabled": true
+	  },
+
+	  "chartScrollbar": {
+	    "offset": 15,
+	    "scrollbarHeight": 5
+	  },
+
+	  "chartCursor": {
+	    "pan": true,
+	    "cursorAlpha": 0,
+	    "valueLineAlpha": 0
+	  }
+	});
+}
+
+function showgraph7(dataprovider){
+	
+	var chart = AmCharts.makeChart("chartdiv", {
+	  "type": "xy",
+	  "theme": "none",
+	  "marginRight": 80,
+	  "dataDateFormat": "YYYY-MM-DD",
+	  "startDuration": 1.5,
+	  "trendLines": [],
+	  "balloon": {
+	    "adjustBorderColor": false,
+	    "shadowAlpha": 0,
+	    "fixedPosition": true
+	  },
+	  "graphs": [{
+	    "balloonText": "<div style='margin:5px;'><b>[[x]]</b><br>y:<b>[[y]]</b><br>value:<b>[[gtd]]</b></div>",
+	    "bullet": "diamond",
+	    "maxBulletSize": 25,
+	    "lineAlpha": 0.8,
+	    "lineThickness": 2,
+	    "lineColor": "black",
+	    "fillAlphas": 0,
+	    "xField": "x",
+	    "yField": "y",
+	    "valueField": "aValue"
+	  }],
+	  "valueAxes": [{
+	    "id": "ValueAxis-1",
+	    "axisAlpha": 0
+	  }, {
+	    "id": "ValueAxis-2",
+	    "axisAlpha": 0,
+	    "position": "bottom"
+	  }],
+	  "allLabels": [],
+	  "titles": [],
+	  "dataProvider": dataprovider,
+
+	  "export": {
+	    "enabled": true
+	  },
+
+	  "chartScrollbar": {
+	    "offset": 15,
+	    "scrollbarHeight": 5
+	  },
+
+	  "chartCursor": {
+	    "pan": true,
+	    "cursorAlpha": 0,
+	    "valueLineAlpha": 0
+	  }
+	});
+}
 /* **************************************************************************************** */
 
 $(document).ready(function(){
+	$("#showgraph2").click(function(){
+		var pid = $("#proId").val();
+		var x=[];
+		url = "/showStressGraph/"+pid;
+		$(".button-checkbox").each(function(){
+			var widget=$(this),
+			checkbox=widget.find('input:checkbox');
+			if(checkbox.is(":checked")){
+			x.push(checkbox.val());
+			}
+		});
+		$.ajax({
+			url: url,
+			type: "GET",
+			data:{x:x},
+			success: function(data){
+				var len=x.length;
+					if(len == 1 && x[len-1]=="bdpress"){
+						showgraph3(data);}
+					else if(len == 1 && x[len-1]=="hstress")
+					{
+						showgraph4(data);
+					}
+					else{
+						showgraph5(data);} 
+						len--;
+	        	jQuery("#exampleModal").modal('show');
+	        	
+			},
+			error: function(data){
+				alert("Select Fields");
+				}
+		});
+	});
+	
+	
 	$("#showgraph1").click(function(){
-	var id = $("#proId").val();
+	var pid = $("#proId").val();
 	var x=[];
-	url = "/showGraph/"+id;
+	url = "/showMiniGraph/"+pid;
 	$(".button-checkbox").each(function(){
 		var widget=$(this),
 		checkbox=widget.find('input:checkbox');
@@ -284,36 +618,77 @@ $(document).ready(function(){
 		data:{x:x},
 		success: function(data){
 			var len=x.length;
-			
 				if(len == 1 && x[len-1]=="gVsder"){
-					console.log( "showgraph");
 					showgraph(data);}
 				else if(len == 1 && x[len-1]=="gVsgder")
-				{console.log( "showgraph1");
+				{
 					showgraph1(data);
 				}
 				else{
-					console.log( "showgraph2");
 					showgraph2(data);} 
 					len--;
-			
-			console.log(x);
-			
         	jQuery("#exampleModal").modal('show');
-        	var data1=JSON.parse(data);
-			console.log(data1);
+        	
 		},
 		error: function(data){
 			alert("Select Fields");
-			console.log(data);
 			}
 	});
+	});
+	
+	$("#showgraph3").click(function(){
+		var pid = $("#proId").val();
+		var x=[];
+		url = "/showdeclinedcurve/"+pid;
+	
+		
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function(data){
+				showgraph6(data);
+	        	jQuery("#exampleModal").modal('show');
+	        	
+			},
+			error: function(data){
+				alert("Select Fields");
+				}
+		});
+		});
+	
+	$("#showgraph4").click(function(){
+		var pid = $("#proId").val();
+		var x=[];
+		url = "/showmainfrac/"+pid;
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function(data){
+				console.log(data);
+				showgraph7(data);
+	        	jQuery("#exampleModal").modal('show');
+			},
+			error: function(data){
+				alert("Select Fields");
+				}
+		});
+		});
+	
+	$("#showgraph5").click(function(){
+		var pid = $("#proId").val();
+		url = "/showhalflength/"+pid;
+		$.ajax({
+			url: url,
+			type: "GET",
+			success:function(data){
+				console.log(data);
+			}
+		});
 	});
 	
 	$("#1000").click(function(){
 	    $("#1001").slideToggle();
 	    $('#ar1').toggleClass('fa-caret-down fa-caret-right');
-	    
 	    
 	    $(".button-checkbox").click(function(){
 	    	var widget = $(this),
@@ -324,99 +699,235 @@ $(document).ready(function(){
 	    	else{
 	    		$(this.id).prop("checked",false);
 	    	}
-	    	
 	    });
 	});
 	
-	$("#showgraph").click(function(){
-		var x=[];
-		var x1=$("#proId").val();
-		url="/showgraphcontro";
-		$(".button-checkbox").each(function(){
-			var widget=$(this),
-			checkbox=widget.find('input:checkbox');
-			if(checkbox.is(":checked")){
-			x.push(checkbox.val());
-			}
-		});
-		$.ajax({
-			url:url,
-			data:{x:x,x1:x1},
-			success:function(data){
-			
-			}
-		});
+	$("#1002").click(function(){
+		$("#1003").slideToggle();
+	    $('#ar2').toggleClass('fa-caret-down fa-caret-right');
+	});
+ 
+	$("#1004").click(function(){
+		$("#1005").slideToggle();
+	    $('#ar3').toggleClass('fa-caret-down fa-caret-right');
+	});
+	$("#1006").click(function(){
+		$("#1007").slideToggle();
+	    $('#ar4').toggleClass('fa-caret-down fa-caret-right');
+	});
+	$("#1008").click(function(){
+		$("#1009").slideToggle();
+	    $('#ar5').toggleClass('fa-caret-down fa-caret-right');
 	});
 }); 
     </script>
-    </head>
+</head>
 
 
-    <body>
-<div layout:fragment="content"> <!-- #IMPORTANT. Refer to this layout in every page you want to use the theme -->
-      <div class="content-wrapper">
-      
-      <input type="hidden" id="proId" th:value=${p_id}>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div style="width: 1000px;" class="modal-dialog" role="document">
-                    <div class="modal-content" style="border-radius: 20px;">
-                        <div class="modal-pop-header" style="padding: 20px;">
-                            <button style=" border-radius: 20px;" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span style="font-size: 20px;" aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="loadtable" style="padding: 20px;">
-					<div id="chartdiv"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-      
-      
-     
-      <!--***************************************************************************************** -->
-      <!--***************************************************************************************** -->
-      
-      <div class="row">
-      <strong><h4 class="text-center" style="font-weight: bold;">GRAPHS</h4></strong><br>
-      <div class="col-md-5">
-      
-		
-		<div class="output">
-                        <div class="outputhead" id="1000" style="cursor: pointer;">
-                            <h4><i id="ar1" style="position: absolute; left: 20px;" class="fa fa-caret-right"></i>Mini Frac<i style="position: absolute; right: 20px;" class="fa fa-flask" aria-hidden="true"></i></h4>
-                        </div>
-                        <div class="outputbody" id="1001" style="display: none;">
-                                <span class="button-checkbox">
-									
-                                    <button type="button"  class="btn" data-color="success">G Vs Der</button>
-                                    <input type="checkbox" name="resfluid" id="PotassicSandstone"  value="gVsder" class="" hidden/>
+<body>
+	<div layout:fragment="content">
+		<!-- #IMPORTANT. Refer to this layout in every page you want to use the theme -->
+		<div class="content-wrapper">
+			<div class="box-body">
+				<div class="nav-tabs-custom box-solid">
+					<div class="tab-content text-center">
+						<div class="tab-pane active" id="tab_1">
 
-                                </span>
-                                <span class="button-checkbox">
-                                    <button type="button" class="btn" data-color="success">G Vs G*Der</button>
-                                    <input type="checkbox" name="resfluid" id="Ironbearingsandstone"  value="gVsgder" class="" hidden/>
+							<input type="hidden" id="proId" th:value=${p_id}>
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div style="width: 1000px;" class="modal-dialog" role="document">
+									<div class="modal-content" style="border-radius: 20px;">
+										<div class="modal-pop-header" style="padding: 20px;">
+											<button style="border-radius: 20px;" type="button"
+												class="close" data-dismiss="modal" aria-label="Close">
+												<span style="font-size: 20px;" aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body" id="loadtable" style="padding: 20px;">
+											<div id="chartdiv"></div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                                </span>
-                        </div>
-                   
-                    </div>
-                    
-      </div>
-      </div>
-      <!--***************************************************************************************** -->
-      <!--***************************************************************************************** -->
- 	 <br>
- 	 <div class="row"></div>
-            <div class="col-md-12">
-            <center>
-            
-            <intput  class="edit btn btn-md btn-primary" id="showgraph1">Show Graph</intput>
-            </center>
-            </div>
-      
-      </div>
-      </div>
-      
-      </body>
-      </html>
+
+
+							<!--***************************************************************************************** -->
+							<!--***************************************************************************************** -->
+
+							<div class="row">
+								<strong><h4 class="text-center"
+										style="font-weight: bold;">GRAPHS</h4></strong><br>
+								<div class="col-md-5">
+
+							<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Mini Frac Graph~~~~~~~~~~~~~~~~~~~~~~~~ -->
+							
+									<div class="output">
+										<div class="outputhead" id="1000" style="cursor: pointer;">
+											<h4>
+												<i id="ar2" style="position: absolute; left: 20px;"
+													class="fa fa-caret-right"></i>Mini Frac<i
+													style="position: absolute; right: 20px;"
+													class="fa fa-flask" aria-hidden="true"></i>
+											</h4>
+										</div>
+										<div class="outputbody" id="1001" style="display: none;">
+											<span class="button-checkbox">
+
+												<button type="button" class="btn" data-color="success">G
+													Vs Der</button> <input type="checkbox" name="resfluid" id=""
+												value="gVsder" class="" hidden />
+
+											</span> <span class="button-checkbox">
+												<button type="button" class="btn" data-color="success">G
+													Vs G*Der</button> <input type="checkbox" name="resfluid" id=""
+												value="gVsgder" class="" hidden />
+
+											</span>
+											<br><br>
+											<center>
+									<intput class="edit btn btn-md btn-primary" id="showgraph1" style="width:26%;">Show
+									Graph</intput>
+								</center>
+										</div>
+									</div>
+								</div>
+								
+								<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Stress Analysis Graph~~~~~~~~~~~~~~~~~~~~~~~~ -->
+								
+								<div class="col-md-5">
+									<div class="output">
+										<div class="outputhead" id="1002" style="cursor: pointer;">
+											<h4>
+												<i id="ar1" style="position: absolute; left: 20px;"
+													class="fa fa-caret-right"></i>Stress Analysis<i
+													style="position: absolute; right: 20px;"
+													class="fa fa-flask" aria-hidden="true"></i>
+											</h4>
+										</div>
+										<div class="outputbody" id="1003" style="display: none;">
+											<span class="button-checkbox">
+
+												<button type="button" class="btn" data-color="success" style="width:65%;">Depth(ft)
+													Vs BreakDwon Pressure</button> <input type="checkbox" name="resfluid" id=""
+												value="bdpress" class="" hidden />
+
+											</span> <span class="button-checkbox">
+												<button type="button" class="btn" data-color="success" style="width:65%;">Depth(ft)
+													Vs Min. Horizontal Stress</button> <input type="checkbox" name="resfluid" id=""
+												value="hstress" class="" hidden />
+
+											</span>
+											<br><br>
+											<center>
+									<intput class="edit btn btn-md btn-primary" id="showgraph2" style="width:26%;">Show
+									Graph</intput>
+								</center>
+										</div>
+									</div>
+
+								</div>
+								</div>
+								<br>
+								<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Declined Curve Graph~~~~~~~~~~~~~~~~~~~~~~~~ -->
+								<div class="row">
+								<div class="col-md-5">
+									<div class="output">
+										<div class="outputhead" id="1004" style="cursor: pointer;">
+											<h4>
+												<i id="ar3" style="position: absolute; left: 20px;"
+													class="fa fa-caret-right"></i>Declined Curve<i
+													style="position: absolute; right: 20px;"
+													class="fa fa-flask" aria-hidden="true"></i>
+											</h4>
+										</div>
+										<div class="outputbody" id="1005" style="display: none;">
+											<span class="button-checkbox">
+												<button type="button" class="btn" data-color="success" style="width:65%;">Rate(STB/Day)
+													Vs Time(Year)</button> <input type="checkbox" name="resfluid" id=""
+												value="bdpress" class="" hidden />
+											</span>
+											<br><br>
+											<center>
+									<intput class="edit btn btn-md btn-primary" id="showgraph3" style="width:26%;">Show
+									Graph</intput>
+								</center>
+										</div>
+									</div>
+								</div>
+								
+								
+								<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Main Graph Graph~~~~~~~~~~~~~~~~~~~~~~~~ -->
+								<div class="col-md-5">
+									<div class="output">
+										<div class="outputhead" id="1006" style="cursor: pointer;">
+											<h4>
+												<i id="ar4" style="position: absolute; left: 20px;"
+													class="fa fa-caret-right"></i>Optimum Fracture Lenght - 2D
+<i
+													style="position: absolute; right: 20px;"
+													class="fa fa-flask" aria-hidden="true"></i>
+											</h4>
+										</div>
+										<div class="outputbody" id="1007" style="display: none;">
+											<span class="button-checkbox">
+												<button type="button" class="btn" data-color="success" style="width:85%;">Width(m)
+													Vs Effective Created Half Length (m)
+</button> <input type="checkbox" name="resfluid" id=""
+												value="bdpress" class="" hidden />
+											</span>
+											<br><br>
+											<center>
+									<intput class="edit btn btn-md btn-primary" id="showgraph4" style="width:26%;">Show
+									Graph</intput>
+								</center>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<br>
+							<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Main Graph Graph~~~~~~~~~~~~~~~~~~~~~~~~ -->
+							<div class="row">
+								<div class="col-md-5">
+									<div class="output">
+										<div class="outputhead" id="1008" style="cursor: pointer;">
+											<h4>
+												<i id="ar5" style="position: absolute; left: 20px;"
+													class="fa fa-caret-right"></i>Half Length
+<i
+													style="position: absolute; right: 20px;"
+													class="fa fa-flask" aria-hidden="true"></i>
+											</h4>
+										</div>
+										<div class="outputbody" id="1009" style="display: none;">
+											<span class="button-checkbox">
+												<button type="button" class="btn" data-color="success" style="width:60%;">Half Length(feet)
+													Vs Time(min)
+</button> <input type="checkbox" name="resfluid" id=""
+												value="bdpress" class="" hidden />
+											</span>
+											<br><br>
+											<center>
+									<intput class="edit btn btn-md btn-primary" id="showgraph5" style="width:26%;">Show
+									Graph</intput>
+								</center>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!--***************************************************************************************** -->
+							<!--***************************************************************************************** -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+</html>

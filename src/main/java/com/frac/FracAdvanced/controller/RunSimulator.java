@@ -15,13 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.frac.FracAdvanced.Method.MainFracGraph;
 import com.frac.FracAdvanced.Method.MiniFracAlgo;
+import com.frac.FracAdvanced.Method.StressAnalysisAlgo;
 import com.frac.FracAdvanced.Method.WriteReadFile;
 import com.frac.FracAdvanced.model.OutputMiniFrac;
 import com.frac.FracAdvanced.model.ProjectDetails;
 import com.frac.FracAdvanced.repository.OutputMiniFracRepo;
 import com.frac.FracAdvanced.repository.ProjectDetailRepo;
 
+/**
+ * @author ShubhamGaur
+ *
+ */
 @RestController
 public class RunSimulator {
 
@@ -31,20 +37,19 @@ public class RunSimulator {
 		private ProjectDetailRepo details;
 		@Autowired
 		OutputMiniFracRepo outrepo;
+		@Autowired
+		MainFracGraph maingraph;
 	
-	@GetMapping("/dede")
-	public List<OutputMiniFrac> createOutput(Model model) {
-		List<OutputMiniFrac> list = output.findAll();
-		model.addAttribute("list", list);
-		return list;
-	}
 	
 	@RequestMapping("/simulate")
 	@ResponseBody
-	public String simulate(@RequestParam("pId") int p_id,RedirectAttributes attributes) throws Exception {
-		WriteReadFile.createInputFile();
-		Map<String, String> inputfilemap=WriteReadFile.readInputFile();
-		MiniFracAlgo.calculate(inputfilemap,p_id);
+	public String simulate(@RequestParam("pId") Integer pid,RedirectAttributes attributes) throws Exception {
+		if(!output.findByProId(pid).isEmpty()) {
+		output.deleteByProId(pid);}
+		maingraph.SaveMainFrac(pid);
+		WriteReadFile.createStressInputFile(pid);
+		MiniFracAlgo.calculate(WriteReadFile.readInputFile("minifrac"),pid);
+		StressAnalysisAlgo.calculate(WriteReadFile.readInputFile("stressanalysis"),pid);
 		return "Success";
 	}
 	

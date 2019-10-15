@@ -20,6 +20,10 @@ import com.frac.FracAdvanced.repository.OutputMiniFracRepo;
 import com.frac.FracAdvanced.repository.ProjectDetailRepo;
 
 
+/**
+ * @author ShubhamGaur
+ *
+ */
 @Component
 public class MiniFracAlgo {
 	

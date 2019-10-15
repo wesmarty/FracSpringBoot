@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * @author ShubhamGaur
+ *
+ */
 @Entity
 @Table(name="miniFrac")
 public class MiniFracModel {

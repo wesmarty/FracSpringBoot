@@ -15,6 +15,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author ShubhamGaur
+ *
+ */
 @Entity
 @Table(name="OutputMiniFrac")
 public class OutputMiniFrac implements Serializable {

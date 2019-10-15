@@ -20,6 +20,10 @@ import javax.persistence.Table;
 import com.frac.FracAdvanced.domain.security.User;
 
 
+/**
+ * @author ShubhamGaur
+ *
+ */
 @Entity
 @Table(name="project_details")
 public class ProjectDetails implements Serializable{
@@ -54,8 +58,82 @@ public class ProjectDetails implements Serializable{
 	@OneToMany(cascade= {CascadeType.ALL},
 	fetch=FetchType.LAZY,
 	mappedBy="prodetails") 
-private List<OutputMiniFrac> output;
+	private List<OutputMiniFrac> output;
 	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<InjectionPlanModel> injection;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<InjectedFluidModel> injected;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<InjectedFluid1Model> injected1;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="pid") 
+	private List<WellDataModel> wd;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="pidFL") 
+	private List<FluidLibraryModel> FLibrary;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<PumpingModel> pumping;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<RockPropertiesModel> rock;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<ReservoirFluidModel> fluidModels;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<StressAnalysisModel> stress;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<ProppantModel> proppant;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<OutputStressModel> outStress;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<WellForcastModel> forcast;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<ReservoirLithologyModel> lithology;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<NonDarcyModel> nondarcy;
+	
+	@OneToMany(cascade= {CascadeType.ALL},
+			fetch=FetchType.LAZY,
+			mappedBy="details") 
+			private List<MainFracGraphModel> MiniFracGraph;
 	
 	public User getUser() {
 		return user;

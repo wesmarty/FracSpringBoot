@@ -1,0 +1,74 @@
+<script th:inline="javascript">
+$('#importData').click(function(event){
+	event.preventDefault();
+	var formData = new FormData($("#fileUploadForm")[0]);
+	if($("#file1").val() && $("#ptime").val()){
+	$.ajax({
+		  url: "upload",
+		  type: 'POST',
+		  enctype: 'multipart/form-data',
+		  data: formData,
+		  processData: false, // tell jQuery not to process the data
+		  contentType: false, // tell jQuery not to set contentType
+		  cache: false,
+		  success: function(res){
+		    $("#loadtable").html(res);
+		    $("#exampleModal").show();
+		    
+		  },
+		  error: function(res) {
+		    console.log('ERR: ' + res);
+		  }
+		});
+	}else{
+		alert("Empty Field");
+		return false;
+	}
+});
+</script>
+
+
+
+<div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+
+<form th:action="@{/}" enctype="multipart/form-data" id="fileUploadForm"  method="post" >
+ <div class="row">
+<div class="col-lg-4 col-xs-6">
+
+                        Select Mini Frac File (txt) to import
+                        <input id="file1" name="files" type="file" required/><br>
+                  
+              <div class="col-md-6">
+    <label >Final Pumping Time(Min)</label>
+    </div>
+    <div class="col-md-6">
+   <input  id="ptime" class="form-control" type="number" min=0 step="any" name="pumptime"  placeholder="Enter Value" required/>
+    <input id="pid" name="pid" type="hidden" th:value=${hiddenId}><br>
+              </div>
+            </div> 
+            <div class="col-lg-8 col-xs-6">
+                <h3>Note:</h3>
+                <ul>
+                    User can input reservoir lithology (Perm/Poro over depth (MD), TVD, formation pressure ) in anyone of three ways :
+
+                    <li>  Import well log ( Porosity log in .las/txt) file</li>
+                    <li>  Import excel file (Perm/Poro over depth, excel format provided)</li>
+                    <li>  Enter manually (Perm/Poro, TVD and formation pressure)</li>
+
+                </ul>
+            </div>
+         
+            
+            
+            <div class="row">
+                <div class="col-md-12">
+    
+    <input type="submit" id="importData" value="Import" class="btn btn-primary"></input>
+    </div>
+    </div></div>
+         </form>
+         <br>
+         
+</div>
+</div>

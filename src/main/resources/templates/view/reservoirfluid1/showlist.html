@@ -1,0 +1,205 @@
+<script th:inline="javascript">
+	$("#rf_showupbt").click(function() {
+		url = "/reservoirFluid1/showupdate";
+		$.ajax({
+			url : url,
+			data : {
+				pid : $("#rf_showpid").val(),
+				type : $("#rf_showtype").val()
+			},
+			success : function(res) {
+				$("#loadtable").html(res);
+				$("#exampleModal").show();
+			}
+		});
+	});
+</script>
+
+<div class="row">
+	<div class="col-sm-1"></div>
+	<div class="col-md-10">
+
+
+
+		<input type="hidden" id="rf_showpid" name="showpid" th:value="${pid}">
+
+		<div class="row">
+
+			<label> Fluid Type :</label> <span> <input type="text"
+				class="form-control" id="rf_showtype" name="showtype"
+				th:value="${type}"
+				style="width: 30%; margin-left: 2%; display: inline-block" readonly>
+			</span>
+		</div>
+
+		<br>
+		<table id="" class="table  table-bordered" th:if="${list!=null}">
+			<tr th:if="${list!=null}">
+				<td></td>
+				<th th:if="${oil!=null}" style="text-align: center">Oil</th>
+				<th th:if="${gas!=null}" style="text-align: center">Gas</th>
+				<th th:if="${water!=null}" style="text-align: center">Water</th>
+			</tr>
+			<tr>
+				<th style="width: 50%">Viscosity(cp)</th>
+				<td th:if="${oil!=null}"><input style="border:0;" type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${oil[0].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${oil[0].id}"
+					readonly></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[0].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[0].id}"
+					readonly></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[0].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[0].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Density(ppg)</th>
+				<td th:if="${oil!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${oil[1].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${oil[1].id}"
+					readonly></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[1].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[1].id}"
+					readonly></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[1].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[1].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Formation Volume Factor(bbl/stb)</th>
+				<td th:if="${oil!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${oil[2].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${oil[2].id}"
+					readonly></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[2].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[2].id}"
+					readonly></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[2].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[2].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Compressibility(1/psi)</th>
+				<td th:if="${oil!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${oil[3].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${oil[3].id}"
+					readonly></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[3].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[3].id}"
+					readonly></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[3].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[3].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Effective Permiability(md)</th>
+				<td th:if="${oil!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${oil[4].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${oil[4].id}"
+					readonly></td>
+				<td th:if="${gas!=null}"></td>
+				<td th:if="${water!=null}"></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Relative Permiability(md)</th>
+				<td th:if="${oil!=null}"></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[4].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[4].id}"
+					readonly></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[4].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[4].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">GOR,Gas Oil Ratio(SCF/STB)</th>
+				<td th:if="${oil!=null}"></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[5].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[5].id}"
+					readonly></td>
+				<td th:if="${water!=null}"></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Gas Specific Gravity</th>
+				<td th:if="${oil!=null}"></td>
+				<td th:if="${gas!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${gas[6].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput" th:value="${gas[6].id}"
+					readonly></td>
+				<td th:if="${water!=null}"></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">WOR,Water Oil Ratio(SCF/STB)</th>
+				<td th:if="${oil!=null}"></td>
+				<td th:if="${gas!=null}"></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[5].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[5].id}" readonly></td>
+			</tr>
+			<tr>
+				<th style="width: 50%">Water Specific Gravity</th>
+				<td th:if="${oil!=null}"></td>
+				<td th:if="${gas!=null}"></td>
+				<td th:if="${water!=null}"><input type="number"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[6].value}" readonly> <input type="hidden"
+					class="form-control" th:name="if_showinput"
+					th:value="${water[6].id}" readonly></td>
+			</tr>
+		</table>
+		<center id="rf_showcenter">
+			<input id="rf_showupbt" type="button" class="fa btn btn-primary"
+				value="Edit" style="width: 10%;" />
+		</center>
+
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="cart">
+					<i class="fa fa-info-circle" id="hv"
+						style="font-size: 25px; color: #176ac2;"></i>
+					<div id="sidebar" class="btn-primary" style="color: white;text-align:center;">
+						<li>Reservoir Fluid Properties have default properties which
+							users can "EDIT" and "UPDATE" (if required).</li>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+
+

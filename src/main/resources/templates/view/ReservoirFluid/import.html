@@ -1,0 +1,75 @@
+<script>
+$(".fluidtype").click(function(){
+	url="reservoirFluid/showfluidtype";
+	$.ajax({
+		url:url,
+		data:{pid:$("#rf_imppid").val(),fluid:$(this).val()},
+		success:function(res){
+			console.log(res);
+			$("#loadtable").html(res);
+          	$("#exampleModal").show();
+          	$("#rf_impcenter").show();
+		}
+	});
+});
+
+$("#rf_impsavebt").click(function(){
+	url="reservoirFluid/savereservoir";
+	$.ajax({
+		url:url,
+		data:$("#rf_impmainform").serialize(),
+	});
+});
+</script>
+<div class="tab-content">
+	<div class="tab-pane active" id="tab_1">
+	<form id="rf_impmainform" class="form-group">
+	<input type="hidden" id="rf_imppid" name="imppid" th:value="${pid}">	
+	<input type="hidden" id="rf_impfluidtype" name="impfluidtype" th:value="${fluidtype}">	
+		<!-- <div class="row ">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+				<label style="float:left;" for="rf_impstage">Select Stage:</label>
+							<div class="form-group">
+							<input class="form-control" id="rf_impstage" type="number" min="0" />
+							</div>
+		</div>
+		<div class="col-md-3"></div>
+		</div> -->
+		<br>
+
+		<div class="row">
+		<center><div class="col-md-12" >
+		<label>Select Fluid Type:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" class="fluidtype btn btn-default" value="Oil Properties"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" class="fluidtype btn btn-default" value="Gas Properties"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" class="fluidtype btn btn-default" value="Water Properties"/>
+		</div>
+		</center>
+		</div>
+		
+		<br>
+		<br>
+		
+		<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" >
+			<table id="" class="table table-hover" >
+				<tr th:each="list:${list}">
+					<th th:text="${list}"></th>
+					<td><input type="hidden"  th:value="${list}" th:name="rf_impparam"
+						class="rf_impvalue form-control" placeholder="Enter Value" />
+					<input type="number" th:name="rf_impvalue"
+						class="rf_impvalue form-control" placeholder="Enter Value" /></td>
+				</tr>
+			</table><br>
+			<center id="rf_impcenter" hidden>
+			<input id="rf_impsavebt" type="button" class="fa btn btn-primary" value="SAVE" />
+			</center>
+		</div>
+		<div class="col-md-2"></div>
+		</div>
+		
+		</form>
+</div>
+</div>

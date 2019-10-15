@@ -1,0 +1,12 @@
+/fluidType1
+viscosity(CP)=990
+property11111=213
+peoperty211111=233
+peoperty311111=233
+peoperty31113344=233
+dfr=233rfd
+/fluidType2
+viscosity(CP)=99
+property1=217
+peopert3=2377
+peoperty2=237

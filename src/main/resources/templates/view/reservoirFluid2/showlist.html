@@ -1,0 +1,149 @@
+   <script th:inline="javascript">
+  
+    $("#fType").change(function (event) {
+    	event.preventDefault();
+		 var var1= $("#fType").val();
+		 var var2= $("#pid").val();
+        $.ajax({            
+            url: '/reservoirFluid1/showRFSecondController',
+            data: {fluidT:var1,pid:var2},
+            success:function(res){            	
+    			$("#loadtable").html(res);
+    		    $("#exampleModal").show();
+    		}
+        });
+
+    });
+    
+	$('input[type=radio][name=aq]').change(function(){
+		var value = $(this).val();
+		var var2= $("#pid").val();
+		  $.ajax({            
+	            url: '/reservoirFluid1/updateRadioWellTypeController',
+	            data: {welltypeaq:value,pid:var2},
+	            success:function(res){            	
+	    			$("#loadtable").html(res);
+	    		    $("#exampleModal").show();
+	    		}
+	        });
+		
+	});
+	
+	   $("#updateValue").click(function (event) {
+	    	event.preventDefault();		
+			confirm("Do you want to Update");
+			 
+	/* 		confirm({
+				    title: 'Confirm!',
+				    content: 'Simple confirm!',
+				    buttons: {
+				        confirm: function () {
+				            $.alert('Confirmed!');
+				        },
+				        cancel: function () {
+				            $.alert('Canceled!');
+				        },
+				        somethingElse: {
+				            text: 'Something else',
+				            btnClass: 'btn-blue',
+				            keys: ['enter', 'shift'],
+				            action: function(){
+				                $.alert('Something else?');
+				            }
+				        }
+				    }
+				}); */
+			 
+			
+			
+	        $.ajax({            
+	            url: '/reservoirFluid1/updateValueController',
+	            data: $("#formwithallData").serialize(),
+	            success:function(res){  
+	            	//alert("value is Updated");
+	    			$("#loadtable").html(res);
+	    		    $("#exampleModal").show();
+	    		}
+	        });
+
+	    });
+    </script>   
+        <section class="content">        
+        <div class="tab-pane active" id="fill" >
+            <!-- Personal info Li -->    
+            <li class="list-group-item">
+                <strong><h4 class="text-center">Reservoir Fluid Library System</h4></strong><br>                
+                <div class="row">
+                <div class="col-md-10">
+    </div>
+                </div>
+                   <div class="col-md-6">
+          <select name="ftype" id="fType" class="form-control">
+<option value="" disabled selected hidden>Well Inputs</option>  		
+<option   value="Reservoir properties">Reservoir properties</option>
+<option   value="Fracture Mechanics Properties">Fracture Mechanics Properties</option>
+<option   value="Optimum Fracture Design Input">Optimum Fracture Design Input</option>
+ </select></li></div> 
+           
+           <div class="col-md-5">     
+<p type="button" class="btn btn-primary" style="font-weight: bold;">select Well Type</p>
+           <div class="col-md-6" >
+ <button type="button" class="btn-success"><label for="bt1">Oil Well</label><input type="radio" id="bt1" name="aq"  value="Oil Well">
+ </button>
+ <button type="button" class="btn-danger"><label for="bt2">Gas Well</label><input type="radio" id="bt2" name="aq"  value="Gas Well">
+</button>  
+        </div></div></br>
+            
+            <div class="row">
+            <div class="col-md-10">
+ <input type="button" style="width:400px"class="btn btn-primary" th:value="${list.get(1).fluidtype}"  id="fluidpropertyid">
+
+<form class="form-horizontal" role="form" id="formwithallData" >
+ <!-- th:if="${teacher.gender == 'F'}"> -->
+<div class="row">
+<div class="col-md-10" id="tablediv" >
+<input id="pid" name="pid" type="hidden" th:value=${pid}>
+<table id="example2" class="table table-hover table-hover ">                      
+                            </thead>
+                            <tbody th:if="${list.empty}" id="body" >
+                                                       
+                             <tbody >
+                             <tr th:each="list : ${list}"  >                           
+                                            <td><input type="text" style="width:250px" name="parameter" th:value="${list.param}" class="press form-control text-center" readOnly></td>
+                                            <td><input type="text"style="width:150px" name="value" th:value="${list.value}" class="time form-control text-center" ></td>                                          
+                                            <td><input type="hidden" name="ftype1" th:value="${list.fluidtype}" class="time form-control text-center" ></td>
+                               </tr>
+                   <tr>                                
+                             </tbody>
+                        </table>
+	<input class="123btn btn-primary" type="submit" value="Update" style="margin-left:50%;" id="updateValue" />                       
+</div>
+</div> 
+</form>        
+                    </div>
+                    
+                   
+              
+                    </div>                 
+                  
+                  
+              
+              
+              
+              
+                </div>
+              
+               
+        </div>
+        
+
+        
+    </section>    
+        
+        
+        
+        
+        
+        
+        
+       

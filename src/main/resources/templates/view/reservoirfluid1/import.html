@@ -1,0 +1,198 @@
+<script th:inline="javascript">
+	$("#rf_impselectfluid").on('change', function() {
+		url = "/reservoirFluid1/saveresfluidtype1";
+		$.ajax({
+			url : url,
+			data : {
+				pid : $("#rf_imppid").val(),
+				type : $(this).val()
+			},
+			success : function(res) {
+				$("#loadtable").html(res);
+				$("#exampleModal").show();
+				$("#rf_impcenter").show();
+			}
+		});
+	});
+
+	$("#rf_impsavebt").click(function() {
+		url = "/reservoirFluid1/saveresfluidinput1";
+		$.ajax({
+			url : url,
+			data : $("#rf_impmainform").serialize(),
+			success : function(res) {
+				$("#loadtable").html(res);
+				$("#exampleModal").show();
+			}
+		});
+	});
+</script>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="tab_1">
+		<form id="rf_impmainform" class="form-group">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<input type="hidden" id="rf_imppid" name="imppid" th:value="${pid}">
+					<input type="hidden" id="rf_imptype" name="imptype"
+						th:value="${type}"> <br>
+
+					<div class="row">
+						<div class="col-md-12">
+							<label>Select Fluid Type:</label> <select class="form-control"
+								id="rf_impselectfluid"
+								style="margin-left: 2%; width: 50%; display: inline-block;">
+								<option disabled selected hidden>Select</option>
+								<option disabled selected hidden th:if="${type!=null}">[[${type}]]</option>
+								<option value="oil">Oil Properties</option>
+								<option value="gas">Gas Properties</option>
+								<option value="water">Water Properties</option>
+								<option value="oil-gas">Oil-Gas Properties</option>
+								<option value="oil-water">Oil-Water Properties</option>
+								<option value="gas-water">Gas-Water Properties</option>
+								<option value="oil-gas-water">Oil-Gas-Water Properties</option>
+							</select>
+						</div>
+
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-10">
+							<table id="" class="table table-hover table-bordered" th:if="${list!=null}">
+								<tr th:if="${list!=null}">
+									<td></td>
+									<th th:if="${oil!=null}" style="text-align: center">Oil</th>
+									<th th:if="${gas!=null}" style="text-align: center">Gas</th>
+									<th th:if="${water!=null}" style="text-align: center">Water</th>
+								</tr>
+								<tr>
+									<th style="width: 50%">Viscosity(cp)</th>
+									<td th:if="${oil!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${oil[0]}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[0]}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[0]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Density(ppg)</th>
+									<td th:if="${oil!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${oil[1]}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[1]}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[1]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Formation Volume Factor(bbl/stb)</th>
+									<td th:if="${oil!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${oil[2]}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[2]}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[2]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Compressibility(1/psi)</th>
+									<td th:if="${oil!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${oil[3]}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[3]}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[3]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Effective Permiability(md)</th>
+									<td th:if="${oil!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${oil[4]}"></td>
+									<td th:if="${gas!=null}"></td>
+									<td th:if="${water!=null}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Relative Permiability(md)</th>
+									<td th:if="${oil!=null}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[4]}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[4]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">GOR,Gas Oil Ratio(SCF/STB)</th>
+									<td th:if="${oil!=null}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[5]}"></td>
+									<td th:if="${water!=null}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Gas Specific Gravity</th>
+									<td th:if="${oil!=null}"></td>
+									<td th:if="${gas!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${gas[6]}"></td>
+									<td th:if="${water!=null}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">WOR,Water Oil Ratio(SCF/STB)</th>
+									<td th:if="${oil!=null}"></td>
+									<td th:if="${gas!=null}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[5]}"></td>
+								</tr>
+								<tr>
+									<th style="width: 50%">Water Specific Gravity</th>
+									<td th:if="${oil!=null}"></td>
+									<td th:if="${gas!=null}"></td>
+									<td th:if="${water!=null}"><input type="number"
+										class="form-control" th:name="if_impinput"
+										th:placeholder="'Enter '+${water[6]}"></td>
+								</tr>
+							</table>
+							<center id="rf_impcenter" hidden>
+								<input id="rf_impsavebt" type="button"
+									class="fa btn btn-primary" value="SAVE" style="width: 10%;" />
+							</center>
+						</div>
+
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+			</div>
+		</form>
+
+                                 <!--*********** i button *************-->
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="cart">
+					<i class="fa fa-info-circle" id="hv"
+						style="font-size: 25px; color: #176ac2;"></i>
+					<div id="sidebar" class="btn-primary" style="color: white; text-align:center;">
+						<li>Select Oil/Gas/Water or all of them based on their
+							presence in the formation.</li>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
